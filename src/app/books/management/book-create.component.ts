@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
 import { ReactiveFormsModule } from '@angular/forms';
 import { Control, form, maxLength, min, minLength, pattern, required } from '@angular/forms/signals';
+=======
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+>>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-create.component.ts
 import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { Book } from '../core/book';
@@ -8,7 +12,11 @@ import { BookApiClient } from '../core/book-api-client.service';
 
 @Component({
   selector: 'app-book-create',
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
   imports: [ReactiveFormsModule, RouterLink, Control],
+=======
+  imports: [ReactiveFormsModule, RouterLink],
+>>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-create.component.ts
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container mx-auto px-4 py-8 max-w-4xl">

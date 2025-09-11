@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ToastService } from '../shared/toast.service';
 import { Book } from './book';
 import { BookApiClient } from './book-api-client.service';
 
 @Component({
   selector: 'app-book-edit',
+<<<<<<< HEAD
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
+=======
+  imports: [ReactiveFormsModule, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+>>>>>>> 65dd84b (solution--break-the-vibe)
   template: `
     <div class="container mx-auto px-4 py-8 max-w-4xl">
       <!-- Loading State -->
@@ -49,6 +55,7 @@ import { BookApiClient } from './book-api-client.service';
       </div>
 
       <!-- Edit Form -->
+<<<<<<< HEAD
       <div *ngIf="book() && !loading() && !error()">
         <!-- Header -->
         <div class="flex items-center justify-between mb-8">
@@ -236,6 +243,23 @@ import { BookApiClient } from './book-api-client.service';
                   Abstract cannot exceed 2000 characters.
                 </div>
               </div>
+=======
+      @if (book() && !loading() && !error()) {
+        <div>
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center">
+              <a
+                [routerLink]="['/book', book()?.id || '']"
+                class="flex items-center text-blue-600 hover:text-blue-800 font-medium transition duration-200 mr-4"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back
+              </a>
+              <h1 class="text-3xl font-bold text-gray-900">Edit Book</h1>
+>>>>>>> 65dd84b (solution--break-the-vibe)
             </div>
           </div>
 
@@ -298,14 +322,7 @@ export class BookEditComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(2)]],
       subtitle: [''],
       author: ['', [Validators.required]],
-      isbn: [
-        '',
-        [
-          Validators.pattern(
-            /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/
-          )
-        ]
-      ],
+      isbn: [''],
       publisher: ['', [Validators.required]],
       numPages: ['', [Validators.required, Validators.min(1)]],
       price: ['', [Validators.required, Validators.pattern(/^\$?\d+(\.\d{2})?$/)]],
@@ -336,13 +353,16 @@ export class BookEditComponent implements OnInit {
           return of(null);
         })
       )
-      .subscribe(book => {
-        if (book) {
-          this.book.set(book);
-          this.populateForm(book);
-          this.loading.set(false);
-        }
-      });
+      .pipe(
+        tap(book => {
+          if (book) {
+            this.book.set(book);
+            this.populateForm(book);
+            this.loading.set(false);
+          }
+        })
+      )
+      .subscribe();
   }
 
   private populateForm(book: Book): void {
@@ -371,6 +391,12 @@ export class BookEditComponent implements OnInit {
       this.bookApiClient
         .updateBook(this.book()!.id, updatedBook)
         .pipe(
+          tap(updatedBook => {
+            if (updatedBook) {
+              this.toastService.show('Book updated successfully!', 3000);
+              this.router.navigate(['/book', this.book()!.id]);
+            }
+          }),
           catchError(error => {
             console.error('Error updating book:', error);
             this.toastService.show('Failed to update book. Please try again.', 5000);
@@ -378,12 +404,7 @@ export class BookEditComponent implements OnInit {
             return of(null);
           })
         )
-        .subscribe(updatedBook => {
-          if (updatedBook) {
-            this.toastService.show('Book updated successfully!', 3000);
-            this.router.navigate(['/book', this.book()!.id]);
-          }
-        });
+        .subscribe();
     }
   }
 

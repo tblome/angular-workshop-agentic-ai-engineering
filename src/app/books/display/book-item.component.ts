@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+<<<<<<< HEAD:src/app/books/display/book-item.component.ts
 import { Book } from '../core/book';
+=======
+import { Book } from './book';
+>>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-item.component.ts
 import { BookCoverComponent } from './book-cover.component';
 
 @Component({
