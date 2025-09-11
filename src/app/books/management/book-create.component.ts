@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 <<<<<<< HEAD:src/app/books/management/book-create.component.ts
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
 import { ReactiveFormsModule } from '@angular/forms';
 import { Control, form, maxLength, min, minLength, pattern, required } from '@angular/forms/signals';
 =======
@@ -17,6 +18,19 @@ import { BookApiClient } from '../core/book-api-client.service';
 =======
   imports: [ReactiveFormsModule, RouterLink],
 >>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-create.component.ts
+=======
+import { ReactiveFormsModule } from '@angular/forms';
+import { Control, form, maxLength, min, minLength, pattern, required } from '@angular/forms/signals';
+import { Router, RouterLink } from '@angular/router';
+import { catchError, of } from 'rxjs';
+import { ToastService } from '../shared/toast.service';
+import { Book } from './book';
+import { BookApiClient } from './book-api-client.service';
+
+@Component({
+  selector: 'app-book-create',
+  imports: [ReactiveFormsModule, RouterLink, Control],
+>>>>>>> 71ddd05 (solution--agentic-migration-signal-forms):src/app/books/book-create.component.ts
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container mx-auto px-4 py-8 max-w-4xl">
@@ -229,6 +243,10 @@ import { BookApiClient } from '../core/book-api-client.service';
 export class BookCreateComponent {
   private readonly router = inject(Router);
   private readonly bookApiClient = inject(BookApiClient);
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
+=======
+  private readonly toastService = inject(ToastService);
+>>>>>>> 71ddd05 (solution--agentic-migration-signal-forms):src/app/books/book-create.component.ts
 
   saving = signal(false);
 
@@ -278,12 +296,20 @@ export class BookCreateComponent {
       .pipe(
         catchError(error => {
           console.error('Error creating book:', error);
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
+=======
+          this.toastService.show('Failed to create book. Please try again.', 5000);
+>>>>>>> 71ddd05 (solution--agentic-migration-signal-forms):src/app/books/book-create.component.ts
           this.saving.set(false);
           return of(null);
         })
       )
       .subscribe(createdBook => {
         if (createdBook) {
+<<<<<<< HEAD:src/app/books/management/book-create.component.ts
+=======
+          this.toastService.show('Book created successfully!', 3000);
+>>>>>>> 71ddd05 (solution--agentic-migration-signal-forms):src/app/books/book-create.component.ts
           this.router.navigate(['/']); // Navigate back to book list
         }
       });
