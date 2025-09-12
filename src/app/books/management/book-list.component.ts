@@ -3,16 +3,22 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+<<<<<<< HEAD
 <<<<<<< HEAD:src/app/books/management/book-list.component.ts
+=======
+>>>>>>> 355f90b (solution--vibe-coding-screenshots-browser-mcp)
 import { Book } from '../core/book';
 import { BookApiClient, PaginatedResponse } from '../core/book-api-client.service';
 import { BookItemComponent } from '../display/book-item.component';
 import { BookHighlightsComponent } from '../highlights/book-highlights.component';
+<<<<<<< HEAD
 =======
 import { Book } from './book';
 import { BookApiClient, PaginatedResponse } from './book-api-client.service';
 import { BookItemComponent } from './book-item.component';
 >>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-list.component.ts
+=======
+>>>>>>> 355f90b (solution--vibe-coding-screenshots-browser-mcp)
 
 @Component({
   selector: 'app-book-list',
@@ -75,11 +81,15 @@ import { BookItemComponent } from './book-item.component';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
           @if (books().length > 0) {
             @for (book of books(); track book.id) {
+<<<<<<< HEAD
 <<<<<<< HEAD:src/app/books/management/book-list.component.ts
               <app-book-item data-testid="book-item" [book]="book"></app-book-item>
 =======
               <app-book-item [book]="book"></app-book-item>
 >>>>>>> 65dd84b (solution--break-the-vibe):src/app/books/book-list.component.ts
+=======
+              <app-book-item data-testid="book-item" [book]="book"></app-book-item>
+>>>>>>> 355f90b (solution--vibe-coding-screenshots-browser-mcp)
             }
           } @else {
             <div
