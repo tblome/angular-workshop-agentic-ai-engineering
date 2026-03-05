@@ -1,6 +1,7 @@
 name: Issue Analysis with Claude
 
 on:
+    workflow_dispatch:
     issues:
         types: [opened, edited]
     issue_comment:
